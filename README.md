@@ -17,6 +17,25 @@ foo x = z
         z = y*2
 ```
 
-This syntax module patches OCaml syntax to allow this.
+Surprisingly, OCaml doesn't support this syntax!
+
+So, I wrote this patch, which changes OCaml so that the `where` clause is allowed.
+
+You're welcome, Haskellites.
+
+# Running the demo
 
 Run with `make run_test`
+
+The output will look something like this:
+
+```
+Should desugar where into a let:
+Catting test.ml
+let x = y
+  where y = 10
+Desugared version
+let x = let y = 10 in y
+```
+
+If you look at the makefile, you'll see the patch gets compiled and then linked in at compile time. The upper program is the original source, and the bottom is the desugared source---the `where` simply and cleanly decomposes to a chain of `let`s.
