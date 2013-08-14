@@ -27,7 +27,7 @@ You're welcome, Haskellites.
 
 Run with `make run_test`
 
-The output will look something like this:
+The output will look something like this (the prompt will colorize it so that it's clearer what's code and what's message):
 
 ```
 Should desugar where into a let:
