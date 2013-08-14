@@ -1,0 +1,6 @@
+name="where"
+version="0.1"
+description="Extends OCaml's syntax to use Haskell-style `where`"
+requires = "camlp4"
+archive(syntax,preprocessor) = "where.cmo"
+archive(syntax,toploop) = "where.cmo"
