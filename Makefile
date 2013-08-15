@@ -10,3 +10,7 @@ run_test: compile test
 	@cat test.ml
 	@echo "\033[92mDesugared version\033[0m"
 	@camlp4o where.cmo test.ml
+
+clean:
+	@rm *.cmi *.cma *.out
+	@rm -rf _build/
