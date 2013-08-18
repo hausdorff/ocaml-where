@@ -6,7 +6,6 @@ module Id : Sig.Id = struct
 end 
 
 module Make (Syntax : Sig.Camlp4Syntax) = struct
-  open Sig
   include Syntax
 
   let _loc = Loc.ghost
@@ -21,7 +20,7 @@ module Make (Syntax : Sig.Camlp4Syntax) = struct
       let_binding_seq: [[ rf = opt_rec; lb = let_binding -> (rf,lb) ]];
       expr: BEFORE ":="
         [ "where"
-          [ e = SELF; "where"; rf = opt_rec; lb = LIST1 let_binding_seq SEP "and" ->
+          [ e = SELF; "where"; lb = LIST1 let_binding_seq SEP "and" ->
             <:expr< $exp_let_bindings e lb$ >> ]
         ];
     END
