@@ -66,6 +66,16 @@ This is exactly what we desire---the `where` simply desugars into a list of `let
 So, how does this work? If you look at the makefile, you'll see the syntax extension (*i.e.*, `where.ml`) gets compiled and then linked in to compiling the test file (*i.e.*, `test.ml`) at compile time.
 
 
+# What do all these files do?
+
+`where.ml` is where the magic happens---this implements our syntax extension, and can be compiled down to a `.cmo` file. This can then be linked into any project you want to use the `where` keyword in, and it should just work.
+
+`test.ml` is the test file that our demo uses to demonstrate how our extension cleanly desugars down into a chain of `let`s.
+
+`META` and `_tags` make compilation easy---they automatically include stuff we want and need, and tell the OCaml build utilities what's up about all the stuff we're using.
+
+
+
 # LICENSE
 
 Because I like you and we're friends, I've chosen to distribute this under MIT. Basically, this means that you can this code for pretty much anything, you just have to keep a note on the code that I wrote, which says I wrote the code. You don't have to acknowledge me in the product or anything. Just the code. It's a pretty friendly license.
