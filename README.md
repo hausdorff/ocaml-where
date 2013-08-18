@@ -68,7 +68,7 @@ So, how does this work? If you look at the makefile, you'll see the syntax exten
 
 # LICENSE
 
-Distributed under MIT, which basically means that if you should use this code for anything, you just have to keep a note saying I wrote the code.
+Because I like you and we're friends, I've chosen to distribute this under MIT. Basically, this means that you can this code for pretty much anything, you just have to keep a note on the code that I wrote, which says I wrote the code. You don't have to acknowledge me in the product or anything. Just the code. It's a pretty friendly license.
 
 
 ## MIT License
