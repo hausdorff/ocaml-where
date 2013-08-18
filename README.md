@@ -3,7 +3,7 @@
 Haskell's `where` is pretty great. If you have a bunch of chained `let`s, like this:
 
 ```haskell
--- computes (x + 2) * 2
+-- NOTE: Haskell code; computes (x + 2) * 2
 foo x = let y = x+2
           let z = y*2
           in z
@@ -12,30 +12,55 @@ foo x = let y = x+2
 … and write them much cleaner here:
 
 ```haskell
+-- NOTE: Haskell code
 foo x = z
   where y = x+2
         z = y*2
 ```
 
-Surprisingly, OCaml doesn't support this syntax!
+Surprisingly, OCaml doesn't support this syntax! So, I wrote this patch, which changes OCaml so that something like the `where` clause is allowed. For technical reasons (an important rule is right-associative), the syntax is somewhat different:
 
-So, I wrote this patch, which changes OCaml so that the `where` clause is allowed.
+```haskell
+-- OCaml version
+foo x = z
+  where y = x+2 and
+        z = y*2
+```
+
+Note the use of `and` to separate bindings here. This is necessary between every binding:
+
+```haskell
+-- Moar OCaml stuff
+foo x = x'''
+  where x'   = x+2 and
+        x''  = x'*2 and
+        x''' = y''+2
+```
 
 You're welcome, Haskellites.
+
 
 # Running the demo
 
 Run with `make run_test`
 
-The output will look something like this (the prompt will colorize it so that it's clearer what's code and what's message):
+The output will inform you that this code:
 
 ```
-Should desugar where into a let:
-Catting test.ml
-let x = y
-  where y = 10
-Desugared version
-let x = let y = 10 in y
+let x = z
+  where y = 10 and
+        z = 20
 ```
 
-If you look at the makefile, you'll see the patch gets compiled and then linked in at compile time. The upper program is the original source, and the bottom is the desugared source---the `where` simply and cleanly decomposes to a chain of `let`s.
+will desugar to this code:
+
+```
+let x =
+  let y = 10 in
+  let z = 20 in
+  z
+```
+
+This is exactly what we desire---the `where` simply desugars into a list of `let`s.
+
+So, how does this work? If you look at the makefile, you'll see the syntax extension (*i.e.*, `where.ml`) gets compiled and then linked in to compiling the test file (*i.e.*, `test.ml`) at compile time.
