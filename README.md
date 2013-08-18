@@ -37,7 +37,7 @@ foo x = x'''
         x''' = y''+2
 ```
 
-You're welcome, Haskellites.
+You're welcome, hardcore `where` fans! :)
 
 
 # Running the demo
