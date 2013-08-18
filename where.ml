@@ -9,11 +9,20 @@ module Make (Syntax : Sig.Camlp4Syntax) = struct
   open Sig
   include Syntax
 
+  let _loc = Loc.ghost
+  let rec exp_let_bindings body = function
+    | [] -> <:expr< >>
+    | [(rf,lb)] -> <:expr< let $rec:rf$ $lb$ in $body$ >>
+    | (rf,lb)::xs -> <:expr< let $rec:rf$ $lb$ in $exp_let_bindings body xs$ >>
+
     EXTEND Gram
+      GLOBAL: expr;
+
+      let_binding_seq: [[ rf = opt_rec; lb = let_binding -> (rf,lb) ]];
       expr: BEFORE ":="
         [ "where"
-          [ e = SELF; "where"; rf = opt_rec; lb = let_binding ->
-            <:expr< let $rec:rf$ $lb$ in $e$ >> ]
+          [ e = SELF; "where"; rf = opt_rec; lb = LIST1 let_binding_seq SEP "and" ->
+            <:expr< $exp_let_bindings e lb$ >> ]
         ];
     END
 end
