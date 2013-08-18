@@ -4,7 +4,7 @@ compile:
 test: compile
 	ocamlc -pp "camlp4o ./where.cmo" test.ml
 
-run_test: compile test
+run_test: compile
 	@echo "\033[1;31m\nShould desugar where into a let:\033[0m"
 	@echo "\033[92mCatting test.ml\033[0m"
 	@cat test.ml
