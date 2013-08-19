@@ -22,7 +22,7 @@ Surprisingly, OCaml doesn't support this syntax! So, I wrote this patch, which c
 
 ```ocaml
 (* OCaml version *)
-foo x = z
+let foo x = z
   where y = x+2 and
         z = y*2
 ```
@@ -31,7 +31,7 @@ Note the use of `and` to separate bindings here. This is necessary between every
 
 ```ocaml
 (* Moar OCaml stuff *)
-foo x = x'''
+let foo x = x'''
   where x'   = x+2 and
         x''  = x'*2 and
         x''' = y''+2
