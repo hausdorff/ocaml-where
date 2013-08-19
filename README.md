@@ -65,7 +65,6 @@ This is exactly what we desire---the `where` simply desugars into a list of `let
 
 So, how does this work? If you look at the makefile, you'll see the syntax extension (*i.e.*, `where.ml`) gets compiled and then linked in to compiling the test file (*i.e.*, `test.ml`) at compile time.
 
-
 # What do all these files do?
 
 `where.ml` is where the magic happens---this implements our syntax extension, and can be compiled down to a `.cmo` file. This can then be linked into any project you want to use the `where` keyword in, and it should just work.
@@ -74,7 +73,15 @@ So, how does this work? If you look at the makefile, you'll see the syntax exten
 
 `META` and `_tags` make compilation easy---they automatically include stuff we want and need, and tell the OCaml build utilities what's up about all the stuff we're using.
 
+# Using in real projects
 
+You can compile `where.ml` into a `where.cmo` with the command `ocamlc -pp "camlp4o pa_extend.cmo q_MLast.cmo" -I +camlp4 -c where.ml`.
+
+From here you can link it in the normal way, e.g., `camlc -pp "ocamlp4o ./where.cmo" your_ml_file_here.ml`.
+
+You can see how it desugars your source by running `camlp4o where.cmo your_ml_file_here.ml`.
+
+Note that there isn't really a standardized way to do syntax extensions, so this may be subtly uncomaptible with other extensions! :(
 
 # LICENSE
 
