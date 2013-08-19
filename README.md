@@ -20,7 +20,7 @@ foo x = z
 
 Surprisingly, OCaml doesn't support this syntax! So, I wrote this patch, which changes OCaml so that something like the `where` clause is allowed. For technical reasons (an important rule is right-associative), the syntax is somewhat different:
 
-```haskell
+```ocaml
 (* OCaml version *)
 foo x = z
   where y = x+2 and
@@ -29,7 +29,7 @@ foo x = z
 
 Note the use of `and` to separate bindings here. This is necessary between every binding:
 
-```haskell
+```ocaml
 (* Moar OCaml stuff *)
 foo x = x'''
   where x'   = x+2 and
