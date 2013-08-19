@@ -1,6 +1,6 @@
 # Ocaml `where`
 
-Haskell's `where` is pretty great. If you have a bunch of chained `let`s, like this:
+Haskell's `where` is pretty great. Say you have a bunch of chained `let`s, like this:
 
 ```haskell
 -- NOTE: Haskell code; computes (x + 2) * 2
@@ -9,7 +9,7 @@ foo x = let y = x+2
           in z
 ```
 
-… and write them much cleaner here:
+Gross! The `where` keyword lets you rewrite them in the following lovely, clean way:
 
 ```haskell
 -- NOTE: Haskell code
